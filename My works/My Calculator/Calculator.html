@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>My Calculator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+    body {
+      background: #998073;
+    }
+    .calculator {
+      width: 100%;
+      max-width: 410px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 10px;
+      box-shadow: 0 0 5px 1px #fff;
+      overflow: hidden;
+    }
+    .cal-parentheses {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .cal-monitor {
+      background: #263238;
+      height: 220px;
+      padding: 0 30px;
+      padding-bottom: 60px;
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+    @keyframes backing {
+      to {filter: brightness(500%)}
+    }
+      #monitor {
+        width: 100%;
+        height: 100%;
+        color: #fff;
+        font-weight: bold;
+        font-size: 60px;
+        padding: 5px;
+        padding-top: 50px;
+        text-align: right;
+        white-space: nowrap;
+        outline: 0;
+        caret-color: #8ab4f8;
+        background: transparent;
+        filter: brightness(200%) contrast(400%);
+        border: none;
+        resize: none;
+      }
+      #monitor::-webkit-scrollbar {width: 0}
+      #solution {
+        color: #fff;
+        font-weight: bold;
+        font-size: 40px;
+        text-align: right;
+        white-space: nowrap;
+        overflow: scroll;
+      }
+      @keyframes equal {
+        0% {transform: none; font-size: 40px;}
+        100% {
+          transform: translateY(-122px);
+          font-size: 70px;
+          color: red;
+        }
+      }
+    .cal-keys {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-column-start: 1;
+      grid-column-end: 4;
+      text-align: center;
+      padding: 20px 10px;
+      background: #174ea6;
+    }
+      .cal-keys > div, .cal-numpad > div {
+        padding: 25px 20px;
+        color: #fff;
+        font-size: 16px;
+        font-family: monospace;
+        font-weight: 500;
+        transition: 0.3s;
+        border-radius: 100%;
+        white-space: nowrap;
+      }
+      .root {
+        filter: brightness(200%) contrast(300%);
+      }
+      .cal-keys > div:active, 
+      .cal-numpad > div:active,
+      .cal-keys > div:active,
+      .cal-operator > div:active {
+        background: rgba(255,255,255,0.1);
+        box-shadow: 0 0 0 15px rgba(255,255,255,0.1);
+      }
+    .cal-numpad {
+      background: #212121;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      padding: 10px;
+      text-align: center;
+      border-right: 0.5px solid #909090;
+    }
+      .cal-numpad > div {
+        padding: 25px 15px;
+        border-radius: 100%;
+      }
+    .cal-operator {
+      display: grid;
+      grid-template-columns: auto auto;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      background: #212121;
+      filter: brightness(200%) contrast(200%);
+    }
+      .cal-operator > div {
+        padding: 20px 25px;
+        transition: 0.3s;
+        border-radius: 100%;
+      }
+      .minus {
+        grid-column-start: 1;
+      }
+      .plus {
+        grid-column-start: 1;
+      }
+      #equal {
+        grid-column-start: 2;
+        font-size: 20px;
+        font-weight: bold;
+      }
+      #numType {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 8px 15px;
+        color: #cdcdcd;
+        border: none;
+        outline: 0;
+        transition: 0.1s;
+        background: transparent;
+        z-index: 1;
+      }
+      #numType:active {
+        background: rgba(255,255,255,0.3);
+      }
+      #back-time {
+        color: #212121;
+      }
+      .inv-act {
+        background: rgba(255,255,255,0.3);
+        border-radius: 5px !important;
+      }
+      .inv-out {
+        background: transparent;
+        border-radius: 100%;
+      }
+      .sin, .cos, .tan, .exp, .pow10, .squar {
+        display: none;
+      }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="cal-parentheses">
+      <div class="cal-monitor">
+        <button id="numType">DEG</button>
+        <textarea virtualkeyboardpolicy="manual" id="monitor" autofocus oninput="calc()"></textarea>
+        <p id="solution"></p>
+      </div>
+      <div class="cal-keys">
+        <div class="inv-out" id="inverse">INV</div>
+        <div id="degOrad">RAD</div>
+        <div onclick="calc('sin(')" id="sin">sin</div>
+        <!-- Inverse --><div onclick="calc('sinˉ¹(')" class="sin">sin<sup>-1</sup></div>
+        <div onclick="calc('cos(')" id="cos">cos</div>
+        <!-- Inverse --><div onclick="calc('cosˉ¹(')" class="cos">cos<sup>-1</sup></div>
+        <div onclick="calc('tan(')" id="tan">tan</div>
+        <!-- Inverse --><div onclick="calc('tanˉ¹(')" class="tan">tan<sup>-1</sup></div>
+        <div onclick="calc('%')">%</div>
+        <div onclick="calc('ln(')" id="natural">ln</div>
+        <!-- Inverse --><div onclick="calc('exp(')" class="exp">e<sup>x</sup></div>
+        <div onclick="calc('log(')" id="log">log</div>
+        <!-- Inverse --><div onclick="calc('10^')" class="pow10">10<sup>x</sup></div>
+        <div onclick="calc('✔(')" class="root">✔️</div>
+        <!-- Inverse --><div onclick="calc('²')" class="squar">x<sup>2</sup></div>
+        <div onclick="calc('^')">^</div>
+        <div onclick="calc('π')">π</div>
+        <div onclick="calc('e')">e</div>
+        <div onclick="calc('(')">(</div>
+        <div onclick="calc(')')">)</div>
+        <div onclick="calc('!')">!</div>
+      </div>
+      <div class="cal-numpad">
+        <div onclick="calc('7')">7</div>
+        <div onclick="calc('8')">8</div>
+        <div onclick="calc('9')">9</div>
+        <div onclick="calc('4')">4</div>
+        <div onclick="calc('5')">5</div>
+        <div onclick="calc('6')">6</div>
+        <div onclick="calc('1')">1</div>
+        <div onclick="calc('2')">2</div>
+        <div onclick="calc('3')">3</div>
+        <div onclick="calc('0')">0</div>
+        <div onclick="calc('•')"">•</div>
+        <div id="back-time"></div>
+      </div>
+      <div class="cal-operator">
+        <div onclick="calc('➗')">➗</div>
+        <div id="backspace">🆑</div>
+        <div onclick="calc('✖')">✖️</div>
+        <div class="minus" onclick="calc('➖')">➖</div>
+        <div class="plus" onclick="calc('️➕')">️➕</div>
+        <div id="equal">=</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    let monitor = document.querySelector("#monitor");
+    let solve = document.getElementById("solution");
+    let equal = document.getElementById("equal");
+    
+    //To get the inverse ofthe degree or radians...
+    let inverse = document.getElementById("inverse");
+    let a_sin = document.querySelector(".sin");
+    let a_cos = document.querySelector(".cos");
+    let a_tan = document.querySelector(".tan");
+    let sin = document.getElementById("sin");
+    let cos = document.getElementById("cos");
+    let tan = document.getElementById("tan");
+    let natur = document.querySelector("#natural");
+    let log10 = document.querySelector("#log");
+    let sqrt = document.querySelector(".root");
+    let exp = document.querySelector(".exp");
+    let pow10 = document.querySelector(".pow10");
+    let squar = document.querySelector(".squar");
+    
+    function calc(val) {
+      let sEnd = monitor.selectionEnd;
+      monitor.value = monitor.value.slice(0, monitor.selectionStart) +
+              val + monitor.value.slice(monitor.selectionEnd, monitor.value.length);
+      monitor.selectionEnd = sEnd + 1;
+      if (val.length > 1) {
+        monitor.selectionStart = sEnd + val.length;
+      }
+      
+      document.getElementById("backspace").onclick = function() {
+        let selSt = monitor.selectionStart;
+        
+        monitor.value = monitor.value.substring(0, selSt-1) + 
+            monitor.value.substring(selSt, monitor.value.length);
+            
+        let minIt = monitor.value.substring(selSt-1, monitor.value.length).length;
+        monitor.selectionEnd = monitor.value.length - minIt;
+        calHelp();
+      }
+      let _display = document.querySelector(".cal-monitor");
+      let time = document.getElementById("back-time");
+      time.onclick = () => {
+        alert("This calculator is designed from Google Calculator. " + 
+          "And I am a student of JavaScript.\n" + 
+          "➜➜ Md. Imran Ali");
+      }
+      function backSpace() {
+        time.innerHTML = 50;
+        _display.style.animation = "";
+        let backing = setInterval(function() {
+          time.innerHTML -= 1;
+          if (time.innerHTML == "0") {
+            monitor.value = "";
+            _display.style.animation = "backing 0.5s ease-in";
+            if (monitor.value == "") {
+              solve.innerHTML = "<b style='color:#af7a00'>Created with Md. Imran Ali</b>";
+              solve.style.fontSize = "20px";
+            } else {solve.style.fontSize = "40px"}
+          clearInterval(backing);
+          }
+        }, 1);
+        document.getElementById("backspace").ontouchend = () => {
+          clearInterval(backing);
+          time.innerHTML = 50;
+          _display.style.animation = "";
+        }
+        document.getElementById("backspace").onmouseup = () => {
+          clearInterval(backing);
+          time.innerHTML = 50;
+          _display.style.animation = "";
+        }
+      }
+      document.getElementById("backspace").ontouchstart = () => backSpace();
+      document.getElementById("backspace").onmousedown = () => backSpace();
+      calHelp();
+    }
+    
+    function calHelp() {
+      let rx = monitor.value;
+      //Operators..
+      rx = rx.replaceAll("️➕", "+");
+      rx = rx.replaceAll("➖", "-");
+      rx = rx.replaceAll("✖","*");
+      rx = rx.replaceAll("➗", "/");
+      rx = rx.replaceAll("•",".");
+      rx = rx.replaceAll("%","*0.01");
+      //Math..
+      if (degRad.innerHTML == "RAD") {
+        rx = rx.replaceAll("sin(","Math.sin((Math.PI/180)*");
+        rx = rx.replaceAll("cos(","Math.cos((Math.PI/180)*");
+        rx = rx.replaceAll("tan(","Math.tan((Math.PI/180)*");
+        rx = rx.replaceAll("sinˉ¹(", "(180/Math.PI) * Math.asin(");
+        rx = rx.replaceAll("cosˉ¹(", "(180/Math.PI) * Math.acos(");
+        rx = rx.replaceAll("tanˉ¹(", "(180/Math.PI) * Math.atan(");
+      }
+      if (degRad.innerHTML == "DEG") {
+        rx = rx.replaceAll("sin(","Math.sin(");
+        rx = rx.replaceAll("cos(","Math.cos(");
+        rx = rx.replaceAll("tan(","Math.tan(");
+        rx = rx.replaceAll("sinˉ¹(", "Math.asin(");
+        rx = rx.replaceAll("cosˉ¹(", "Math.acos(");
+        rx = rx.replaceAll("tanˉ¹(", "Math.atan(");
+      }
+      rx = rx.replaceAll("log", "Math.log10");
+      rx = rx.replaceAll("ln","Math.log");
+      rx = rx.replaceAll("✔","Math.sqrt");
+      rx = rx.replaceAll("^", "**");
+      rx = rx.replaceAll("π","Math.PI");
+      rx = rx.replaceAll("exp(", "Math.E ** (")
+      rx = rx.replaceAll("e","Math.E");
+      rx = rx.replaceAll("²", "**2")
+      //Doing factorial...
+      function factorial(n) {
+        if (n < 1) {
+          return 1;
+        } else {        
+          return n * factorial(n - 1);
+        }
+      }
+      //Solving factorial..
+      rx = rx.replace(/(\d+)!/g, (p1) => factorial(parseInt(p1)));
+      
+      try {
+        if (monitor.value.length == 0) {
+          rx = 0;
+        }
+        solve.innerHTML = parseFloat(eval(rx).toFixed(10));
+      } catch(err) {
+        solve.innerHTML = "ERROR: " + err.message;
+      }
+      
+      //To show watermark when no expression found..
+      if (solve.innerHTML == "undefined") {
+          solve.innerHTML = "<b style='color:lime'>Created with Md. Imran Ali</b>";
+          solve.style.fontSize = "20px";
+      } else {solve.style.fontSize = "40px"}
+      
+      //To change font size..
+      if (monitor.value.length == 7) {
+          monitor.style.fontSize = "50px";
+       }
+      else if (monitor.value.length > 7) {
+          monitor.style.fontSize = "40px";
+      } else {
+          monitor.style.fontSize = "60px";
+      }
+      
+      //To change color when wrong expression..
+      if (Boolean(Number(solve.innerHTML)) == false) {
+        solve.style.color = "red";
+        solve.style.fontSize = "20px";
+      } else {
+        solve.style.color = "#fff";
+      }
+      if (solve.innerHTML == "NaN") {
+       solve.innerHTML = "Invalid parameter of <b style='color: #26ff00;'>inverse</b>";
+      }
+      if (solve.innerHTML == "0") {
+        solve.style.fontSize = "40px";
+        solve.style.color = "#fff";
+      }
+      
+      if (monitor.value.includes("tan(90)")) {
+        solve.innerHTML = "Infinity";
+      }
+      
+      //Set when click on equal...
+      equal.onclick = () => {
+       solve.style.animation = "equal 0.3s ease-out";
+       solve.style.animationPlayState = "running";
+       setTimeout(function() {
+         monitor.value = solve.innerHTML;
+         solve.innerHTML = "";
+         solve.style.animation = "";
+       }, 300);
+      }
+    }
+    //Convert degree or radian...
+    let degRad = document.getElementById("degOrad");
+    let numType = document.getElementById("numType");
+    degRad.onclick = () => {
+      if (degRad.innerHTML == "RAD") {
+        degRad.innerHTML = "DEG";
+        numType.innerHTML = "RAD";
+      } else {
+        degRad.innerHTML = "RAD";
+        numType.innerHTML = "DEG";
+      }
+      calHelp();
+    }
+    numType.onclick = () => {
+      if (numType.innerHTML == "DEG") {
+        numType.innerHTML = "RAD";
+        degRad.innerHTML = "DEG";
+      } else {
+        numType.innerHTML = "DEG";
+        degRad.innerHTML = "RAD";
+      }
+      calHelp();
+    }
+    //Inverse...
+    inverse.onclick = () => {
+      if (inverse.getAttribute("class") == "inv-out") {
+        inverse.setAttribute("class", "inv-act");
+        //Hide sin, cos and tan...
+        sin.style.display = "none";
+        cos.style.display = "none";
+        tan.style.display = "none";
+        natur.style.display = "none";
+        log10.style.display = "none";
+        sqrt.style.display = "none";
+        
+        //Display inverse...
+        a_sin.style.display = "block";
+        a_cos.style.display = "block";
+        a_tan.style.display = "block";
+        exp.style.display = "block";
+        pow10.style.display = "block";
+        squar.style.display = "block";
+      } else {
+        inverse.setAttribute("class", "inv-out");
+        //Go back..
+        //show sin, cos and tan...
+        sin.style.display = "block";
+        cos.style.display = "block";
+        tan.style.display = "block";
+        natur.style.display = "block";
+        log10.style.display = "block";
+        sqrt.style.display = "block";
+        
+        //Hide inverse...
+        a_sin.style.display = "none";
+        a_cos.style.display = "none";
+        a_tan.style.display = "none";
+        exp.style.display = "none";
+        pow10.style.display = "none";
+        squar.style.display = "none";
+      }
+      calHelp();
+    }      
+    
+    window.addEventListener("click", () => {
+      monitor.focus();
+    });
+  </script>
+</body>
+</html>
