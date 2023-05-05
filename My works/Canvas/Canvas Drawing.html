@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>Canvas Signature</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      line-height: 1 !important;
+    }
+    body {overflow: hidden;}
+    #myCan {
+      background: #6b6b6b;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 10px;
+      box-shadow: 0 0 5px 3px #fff inset;
+      transform: translate(-50%, -50%);
+    }
+    #colours {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    #reset {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 50px;
+      width: 50px;
+      border-radius: 100%;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="myCan" width="400" height="700"></canvas>
+  <input type="color" id="colours" value="#000000" />
+  <button id="reset"></button>
+  
+  <script>
+    let can = document.getElementById("myCan");
+    let col = document.getElementById("colours");
+    let res = document.getElementById("reset");
+    let ctx = can.getContext("2d");
+    can.addEventListener("touchmove", (event) => {
+      let lastX = event.touches[0].clientX;
+      let lastY = event.touches[0].clientY;
+      
+      ctx.beginPath();
+      ctx.moveTo(lineX, lineY-50);
+      ctx.lineTo(lastX, lastY-50);
+      ctx.strokeStyle = col.value;
+      ctx.lineWidth = 5;
+      ctx.lineCap = "round";
+      ctx.stroke();
+      
+      lineX = event.touches[0].clientX;
+      lineY = event.touches[0].clientY;
+    });
+    can.addEventListener("touchstart", (event) => {
+      lineX = event.touches[0].clientX;
+      lineY = event.touches[0].clientY;
+    });
+    res.addEventListener("touchmove", (e) => {
+      let resX = e.touches[0].clientX;
+      let resY = e.touches[0].clientY;
+      if (resX < 0 && resY < 0) {
+        console.log("wow")
+      }
+      can.getContext("2d").clearRect(resX, resY-50, 40, 40);
+      
+      res.style.top = resY.toFixed() + "px";
+      res.style.left = resX.toFixed() + "px";
+    });
+  </script>
+</body>
+</html>
