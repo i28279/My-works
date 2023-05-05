@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>Video Player</title>
+  <link rel="stylesheet" href="player.css">
+</head>
+<body>
+  <div class="player">
+    <video src="Fatih Sultan Mehmet (1453).mp4" class="video" type="mp4/webm"></video>
+    <div class="edition" id="cp1">
+      <img src="images/play.png" class="__play"/>
+      <div class="bottom_options">
+        <div class="controls">
+          <div class="__current_Time"></div>
+          <div><input type="range" min="0" step="0.01" value="0" class="__video_Times"></div>
+          <div class="__total_Times"></div>
+        </div>
+        <div class="options">
+          <div class="water">📽️
+            <span id="watermark">We are the so called Bengalis from the east..</span>
+          </div>
+          <div class="opt">
+            <span id="speed">Speed</span>
+            <img src="images/stretch.png" id="video_size"/>
+            <img src="images/fullscreen.png" id="fullscreen"/>
+            <img src="images/float.png" id="float"/>
+          </div>
+        </div>
+      </div>
+      <div class="more_btn">
+        <div class="__title">
+          <h2 id="video_name"></h2><br>
+          <span id="video_descript"></span>
+        </div>
+        <div><img src="images/more.png" class="__more"></div>
+      </div>
+      <input type="range" min="0.25" max="5" step="0.25" value="1" class="playbackRate" id="cp0"/>
+      <span class="size_vid">Stretch</span>
+      <span id="size">0</span>
+      <span id="playText">0</span>
+    </div>
+    <!-- To do controls -->
+    <div class="control_panel">
+      <div class="seek_panel">
+        <div class="seek_left">
+          <img src="images/backward.png" />
+        </div>
+        <div class="seek_right">
+          <img src="images/forward.png" />
+        </div>
+      </div>
+    </div>
+    <!-- More options -->
+    <div class="extra">
+      <div class="extra_parent">
+        <div><a id="download" download href=""><img src="images/download.png" /></a></div>
+        <div><img src="images/share.png" id="share"/></div>
+      </div>
+      <div class="extra_close"><img src="images/float_exit.png" /></div>
+    </div>
+    <span class="water_help">0</span>
+  </div>
+  
+  <span id="testing"></span>
+  <div>
+    <h2>My video player</h2>
+    <br>
+    <ruby>
+      H <rp><rt style="font-size:25px; margin-bottom: -10px">—</rt></rp>
+    </ruby>
+    <p>suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br> 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    </p>
+    <h2>My video player</h2>
+    <br>
+    <p>suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br> 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    </p>
+    <h2>My video player</h2>
+    <br>
+    <p>suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br> 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    suscipit mei lectus maiorum suas noluisse dolor adversarium integer corrumpit
+    suscipit mei lectus maiorum suas noluisse dolor
+    suscipit mei lectus maiorum suas noluisse dolor<br>
+    suscipit mei lectus maiorum suas noluisse dolor 
+    </p>
+  </div>
+  <script src="player.js"></script>
+</body>
+</html>
