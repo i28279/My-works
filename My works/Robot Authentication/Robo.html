@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>Robot Authentication</title>
+  <link rel="stylesheet" href="robo.css">
+</head>
+<body>
+  <div class="container">
+    <div class="math">
+      <div>
+        <span>Draw </span>
+        <b id="random">UNDEFINED</b>
+        <span> to verify you are human</span>
+        <p>You must touch on the dots.</p>
+      </div>
+      <div>↻</div>
+    </div>
+    <div class="header">Human verification</div>
+    <div class="parent">
+      <div class="robo">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="samp"></div>
+      <canvas height="200" width="200" class="auth"></canvas>
+    </div>
+    <button class="verify">Verify</button>
+    <b id="veriTest"></b>
+    <span id="times-up">Complete the drawing within <b>00:</b><b id="time"></b> seconds</span>    
+    <button class="help-btn">❔</button>
+  </div>
+  <div class="help-box">
+    <div><h3>Draw like this..</h3></div>
+    <div>
+      <div id="help"><div id="help-txt"></div></div>
+    </div>
+    <div><button class="close-help">✖️</button></div>
+  </div>
+  <script src="robo.js"></script>
+</body>
+</html>
