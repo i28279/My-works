@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Clock</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      line-height: 1 !important;
+    }
+    body {
+      background: #e1e1e1;
+    }
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 10px;
+      text-align: center;
+      border-radius: 15px;
+      box-shadow: 5px 5px 5px 3px #636363,
+                  -5px -5px 5px 3px #fff;
+    }
+    .clock {
+      position: relative;
+      display: inline-block;
+      height: 200px;
+      width: 200px;
+    }
+    #clock-bg {
+      height: 100%;
+      width: 100%;
+    }
+    .hands {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: none;
+      height: 100%;
+      width: 100%;
+      border-radius: 100%;
+      margin-top: -5px;
+      z-index: 0;
+    }
+    #clock-min, #clock-sec, #clock-hour {
+      position: absolute;
+      ttop: 50%;
+      left: 50%;
+      transform: rotate(-180deg) translate(-50%, 0);
+      transform-origin: 0 0;
+      margin-top: 2px;
+      height: 32%;
+      transition: 1s linear;
+    }
+    #clock-min {}
+    .test {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 6%;
+      width: 6%;
+      margin-top: -1%;
+      border-radius: 100%;
+      background: #fff;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div><h2>My Analog Clock</h2></div>
+    <div class="clock">
+      <img src="clock.svg" height="200" width="300" id="clock-bg" />
+      <div class="hands">
+        <img src="clock-sec.svg" height="200" width="300" id="clock-sec">
+        <img src="clock-min.svg" height="200" width="300" id="clock-min">
+        <img src="clock-hour.svg" height="200" width="300" id="clock-hour">  
+      </div>
+      <div class="test"></div>
+    </div>
+  </div>
+  
+  <script>
+    const sec = document.querySelector("#clock-sec");
+    const min = document.querySelector("#clock-min");
+    const hour = document.querySelector("#clock-hour");
+    function clock() {
+      setInterval(function() {
+        const time = new Date();
+        const tSOTDay = time.getHours()*3600 + time.getMinutes()*60 + time.getSeconds();
+        const secDEG = (tSOTDay / 60) * 360 - 180;
+        const minDEG = ((time.getMinutes() + time.getSeconds() / 60) / 60) * 360 - 180;
+        const hourDEG = ((time.getHours() + time.getMinutes() / 60) / 12) * 360 - 180;
+        
+        sec.style.transform = `rotate(${secDEG}deg) translate(-50%, 0)`;
+        min.style.transform = `rotate(${minDEG}deg) translate(-50%, 0)`;
+        hour.style.transform = `rotate(${hourDEG}deg) translate(-50%, 0)`;
+      }, 1000);
+    }
+   clock()
+  </script>
+</body>
+</html>
